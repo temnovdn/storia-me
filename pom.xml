@@ -9,14 +9,24 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-
         <selenium.version>2.48.2</selenium.version>
-        <testng.version>6.1.1</testng.version>
-
+        <testng.version>6.9.4</testng.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
+        <maven.compiler.plugin.source>1.7</maven.compiler.plugin.source>
+        <maven.compiler.plugin.target>1.7</maven.compiler.plugin.target>
+        <maven.surefire.plugin.version>2.16</maven.surefire.plugin.version>
+        <maven.checkstyle.plugin.version>2.16</maven.checkstyle.plugin.version>
+        <checkstyle.file>src/main/resources/checkstyle.xml</checkstyle.file>
+        <maven.findbugs.plugin.version>3.0.1</maven.findbugs.plugin.version>
+        <maven.pmd.plugin.version>3.5</maven.pmd.plugin.version>
+        <slf4j.version>1.7.5</slf4j.version>
+        <sysout-over-slf4j.version>1.0.2</sysout-over-slf4j.version>
+        <aspectj.version>1.7.4</aspectj.version>
+        <allure.version>{latest-allure-version}</allure.version>
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-firefox-driver</artifactId>
@@ -29,7 +39,130 @@
             <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
+
+    <profiles>
+
+        <profile>
+            <id>checkstyle</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>${maven.checkstyle.plugin.version}</version>
+                        <configuration>
+                            <consoleOutput>true</consoleOutput>
+                            <configLocation>${checkstyle.file}</configLocation>
+                            <includeTestSourceDirectory>false</includeTestSourceDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>findbugs</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>findbugs-maven-plugin</artifactId>
+                        <version>${maven.findbugs.plugin.version}</version>
+                        <configuration>
+                            <failOnError>true</failOnError>
+                            <findbugsXmlOutput>true</findbugsXmlOutput>
+                            <includeTests>true</includeTests>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>pmd</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-pmd-plugin</artifactId>
+                        <version>${maven.pmd.plugin.version}</version>
+                        <configuration>
+                            <failOnViolation>true</failOnViolation>
+                            <printFailingErrors>true</printFailingErrors>
+                            <includeTests>true</includeTests>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.plugin.source}</source>
+                    <target>${maven.compiler.plugin.target}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
+                <configuration>
+                    <testSourceDirectory>${basedir}/src/main/java/</testSourceDirectory>
+                    <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>
+                    <testFailureIgnore>false</testFailureIgnore>
+                    <argLine>-javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+                    </argLine>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>ru.yandex.qatools.allure.testng.AllureTestListener</value>
+                        </property>
+                    </properties>
+                    <argLine>-Dmaven.browser</argLine>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>
