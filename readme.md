@@ -4,7 +4,7 @@ Uses Yandex.Allure as a report module.
 
 To run tests:
 
-$ mvn clean test
+$ mvn clean test -Dtest=login.xml
 
 Results will be generated as XML file:
 
