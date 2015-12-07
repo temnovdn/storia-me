@@ -25,14 +25,14 @@ public class StoriaTestInit {
             driver = new FirefoxDriver();
         } else if ("chrome".equals(browser)) {
             driver = new ChromeDriver();
-            // Repeat this code for any driver used.
+            // Repeat 2 lines of code above (with specific WebDriver) if you need additional drivers.
         } else {
-            //Log that no browser specified - will use Firefox as default.
+            LOGGER.info("No browser specified - will use Firefox as default");
             driver = new FirefoxDriver();
         }
 
-        if (url.equals(null)) {
-            //Log that url is not specified and http://storia.me will be used.
+        if (url == null) {
+            LOGGER.info("Url is not specified and http://storia.me will be used");
             driver.get(DEFAULT_URL);
         } else {
             driver.get(url);
