@@ -8,8 +8,8 @@ $ mvn clean test -Dtest=login.xml
 
 Results will be generated as XML file:
 
-To generate cool HTML test report from XML file:
+To generate cool HTML test report from XML file above:
 
 $ mvn site
 
-after test run.
+Report will be generated in: 
