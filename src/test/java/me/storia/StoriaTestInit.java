@@ -29,6 +29,7 @@ public class StoriaTestInit {
     @BeforeSuite
     @Parameters({"browser", "url"})
     public void initTest(@Optional final String browser, @Optional final String url) {
+        // Initialization of WebDriver
         if ("firefox".equals(browser)) {
             driver = new FirefoxDriver();
         } else if ("chrome".equals(browser)) {
@@ -39,6 +40,7 @@ public class StoriaTestInit {
             driver = new FirefoxDriver();
         }
 
+        // Getting URL
         if (url == null) {
             LOGGER.info("Url is not specified and http://storia.me will be used");
             driver.get(DEFAULT_URL);
@@ -46,18 +48,21 @@ public class StoriaTestInit {
             driver.get(url);
         }
 
+        // Initialization of page objects for login and home pages
         loginPage = PageFactory.initElements(driver, StoriaLoginPage.class);
         homePage = PageFactory.initElements(driver, StoriaHomePage.class);
     }
 
     @BeforeMethod
     public void initMethod(Method method) {
+        // Just some log entries to separate one method from another
         MDC.put("methodName", "[" + method.getDeclaringClass() + "#" + method.getName() + "]");
         LOGGER.info("Method {} started", method.getName());
     }
 
     @AfterMethod
     public void stopMethod(Method method, ITestResult iTestResult) {
+        // Just some log entries to separate one method from another
         LOGGER.info("Method {} finished", method.getName());
         if (!iTestResult.isSuccess()) {
             LOGGER.error("Test {} failed! ", method.getName(), iTestResult.getThrowable());
@@ -66,7 +71,7 @@ public class StoriaTestInit {
 
     @AfterSuite
     public void endTest() {
-        //Log "Test ended"
+        LOGGER.info("Test completed");
         driver.quit();
     }
 }

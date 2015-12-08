@@ -1,12 +1,13 @@
 package me.storia.login;
 
+import me.storia.StoriaTestInit;
 import org.testng.annotations.Test;
 
 /**
  * Created by dmitrytemnov on 08/12/15.
  */
 @Test
-public class StoriaMeLoginTests {
+public class StoriaMeLoginTests extends StoriaTestInit {
 
     public void passwordUsernameLogin() {
 
