@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Custom suite" parallel="false">
+    <parameter name="configFile" value="staging"/>
+    <test verbose="1" name="storia.me login page tests" parallel="false">
+
+        <classes>
+            <class name="com"/>
+            <class name="com.plamee.version1_1.Kafka"/>
+        </classes>
+    </test>
+</suite>

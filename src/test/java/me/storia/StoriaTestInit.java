@@ -1,11 +1,17 @@
+package me.storia;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.slf4j.MDC;
+import me.storia.pages.StoriaHomePage;
+import me.storia.pages.StoriaLoginPage;
+
 import java.lang.reflect.Method;
 
 /**
@@ -14,6 +20,8 @@ import java.lang.reflect.Method;
 public class StoriaTestInit {
 
     protected static WebDriver driver;
+    protected static StoriaLoginPage loginPage;
+    protected static StoriaHomePage homePage;
 
     protected final static Logger LOGGER = LoggerFactory.getLogger(StoriaTestInit.class);
     protected final static String DEFAULT_URL = "http://storia.me";
@@ -37,6 +45,9 @@ public class StoriaTestInit {
         } else {
             driver.get(url);
         }
+
+        loginPage = PageFactory.initElements(driver, StoriaLoginPage.class);
+        homePage = PageFactory.initElements(driver, StoriaHomePage.class);
     }
 
     @BeforeMethod

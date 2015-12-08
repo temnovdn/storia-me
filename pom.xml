@@ -11,6 +11,7 @@
     <properties>
         <selenium.firefox.driver.version>2.48.2</selenium.firefox.driver.version>
         <selenium.chrome.driver.version>2.47.1</selenium.chrome.driver.version>
+        <selenium.java.version>2.47.1</selenium.java.version>
         <testng.version>6.9.4</testng.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
@@ -38,6 +39,12 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>
             <version>${selenium.chrome.driver.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.java.version}</version>
         </dependency>
 
         <dependency>
