@@ -9,18 +9,30 @@ import org.testng.annotations.Test;
 @Test
 public class StoriaMeLoginTests extends StoriaTestInit {
 
+    /**
+     * Tests login with username and password.
+     */
     public void passwordUsernameLogin() {
 
     }
 
+    /**
+     * Tests login via Google+.
+     **/
     public void googleLogin() {
 
     }
 
+    /**
+     * Tests login via facebok.
+     */
     public void facebookLogin() {
 
     }
 
+    /**
+     * Tests login via Vkontakte.
+     */
     public void vkLogin() {
 
     }

@@ -26,6 +26,12 @@ public class StoriaTestInit {
     protected final static Logger LOGGER = LoggerFactory.getLogger(StoriaTestInit.class);
     protected final static String DEFAULT_URL = "http://storia.me";
 
+    /**
+     * This is the method to initialize test run on application, located at url (defined in test xml,
+     * via defined in xml browser. If browser or url is not defined - Firefox and http://storia.me will be used.
+     * @param browser
+     * @param url
+     */
     @BeforeSuite
     @Parameters({"browser", "url"})
     public void initTest(@Optional final String browser, @Optional final String url) {
@@ -69,6 +75,9 @@ public class StoriaTestInit {
         }
     }
 
+    /**
+     * Closes the browser after suite run.
+     */
     @AfterSuite
     public void endTest() {
         LOGGER.info("Test completed");

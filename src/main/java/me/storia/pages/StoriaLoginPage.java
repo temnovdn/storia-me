@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 /**
- * Created by dmitrytemnov on 08/12/15.
+ * Page object class for login page.
  */
 public class StoriaLoginPage {
 
