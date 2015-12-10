@@ -1,9 +1,12 @@
 package me.storia;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
@@ -24,7 +27,7 @@ public class StoriaTestInit {
     protected static StoriaHomePage homePage;
 
     protected final static Logger LOGGER = LoggerFactory.getLogger(StoriaTestInit.class);
-    protected final static String DEFAULT_URL = "http://storia.me";
+    protected final static String DEFAULT_URL = "https://storia.me";
 
     /**
      * This is the method to initialize test run on application, located at url (defined in test xml,
@@ -38,9 +41,11 @@ public class StoriaTestInit {
         // Initialization of WebDriver
         if ("firefox".equals(browser)) {
             driver = new FirefoxDriver();
+            LOGGER.info("Browser to use: {}", browser);
         } else if ("chrome".equals(browser)) {
             driver = new ChromeDriver();
             // Repeat 2 lines of code above (with specific WebDriver) if you need additional drivers.
+            LOGGER.info("Browser to use: {}", browser);
         } else {
             LOGGER.info("No browser specified - will use Firefox as default");
             driver = new FirefoxDriver();
@@ -48,11 +53,14 @@ public class StoriaTestInit {
 
         // Getting URL
         if (url == null) {
-            LOGGER.info("Url is not specified and http://storia.me will be used");
+            LOGGER.info("Url is not specified and {} will be used", DEFAULT_URL);
             driver.get(DEFAULT_URL);
         } else {
             driver.get(url);
+            LOGGER.info("Url to test: {}", url);
         }
+
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.id("rootView")));
 
         // Initialization of page objects for login and home pages
         loginPage = PageFactory.initElements(driver, StoriaLoginPage.class);

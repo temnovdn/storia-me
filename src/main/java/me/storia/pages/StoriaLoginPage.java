@@ -10,22 +10,22 @@ import org.openqa.selenium.support.PageFactory;
  */
 public class StoriaLoginPage {
 
-    @FindBy(name = "google")
+    @FindBy(className = "sui-button--social gp")
     private WebElement googleLoginButton;
 
-    @FindBy(name = "facebook")
+    @FindBy(name = "sui-button--social fb")
     private WebElement facebookLoginButton;
 
-    @FindBy(name = "vk")
+    @FindBy(className = "sui-button--social vk")
     private WebElement vkLoginButton;
 
-    @FindBy(name = "login")
-    private WebElement loginField;
+    @FindBy(xpath = "html/body/div/div[10]/div/div[2]/div/div[2]/form/div[2]/input")
+    private WebElement emailField;
 
-    @FindBy(name = "password")
+    @FindBy(xpath = "html/body/div/div[10]/div/div[2]/div/div[2]/form/div[3]/input")
     private WebElement passwordField;
 
-    @FindBy(name = "login")
+    @FindBy(xpath = "html/body/div/div[10]/div/div[2]/div/div[2]/form/button")
     private WebElement loginButton;
 
     private WebDriver driver;
@@ -48,7 +48,7 @@ public class StoriaLoginPage {
     }
 
     public void usernameAndPasswordLogin(final String username, final String password) {
-        loginField.sendKeys(username);
+        emailField.sendKeys(username);
         passwordField.sendKeys(password);
         loginButton.click();
     }
