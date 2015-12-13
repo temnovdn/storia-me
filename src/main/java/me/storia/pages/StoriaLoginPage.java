@@ -13,10 +13,12 @@ public class StoriaLoginPage {
     @FindBy(className = "logo")
     private WebElement logoButton;
 
-    @FindBy(css = "#rootView > div > div.mod-SignIn.with-bg.ui-popup > div > div.ui-wrapper > div > div.Join-container > div.Join-social-form > form > div.sui-button--social.gp")
+    @FindBy(css = "#rootView > div > div.mod-SignIn.with-bg.ui-popup > div"
+            + " > div.ui-wrapper > div > div.Join-container > div.Join-social-form > form > div.sui-button--social.gp")
     private WebElement googleLoginButton;
 
-    @FindBy(css = "#rootView > div > div.mod-SignIn.with-bg.ui-popup > div > div.ui-wrapper > div > div.Join-container > div.Join-social-form > form > div.sui-button--social.fb")
+    @FindBy(css = "#rootView > div > div.mod-SignIn.with-bg.ui-popup > div"
+            + " > div.ui-wrapper > div > div.Join-container > div.Join-social-form > form > div.sui-button--social.fb")
     private WebElement facebookLoginButton;
 
     @FindBy(css = "div.sui-form--line:nth-child(2) > input:nth-child(1)")
@@ -33,13 +35,6 @@ public class StoriaLoginPage {
 
     @FindBy(linkText = "forgot")
     private WebElement forgottenPassword;
-
-    private WebDriver driver;
-
-    public StoriaLoginPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
 
     public void googleLogin() {
         googleLoginButton.click();
