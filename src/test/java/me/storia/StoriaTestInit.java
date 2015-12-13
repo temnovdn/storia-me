@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.slf4j.MDC;
-import me.storia.pages.StoriaHomePage;
 import me.storia.pages.StoriaLoginPage;
 
 import java.lang.reflect.Method;
@@ -24,10 +23,10 @@ public class StoriaTestInit {
 
     protected static WebDriver driver;
     protected static StoriaLoginPage loginPage;
-    protected static StoriaHomePage homePage;
+    protected static String testUrl;
 
     protected final static Logger LOGGER = LoggerFactory.getLogger(StoriaTestInit.class);
-    protected final static String DEFAULT_URL = "https://storia.me";
+    protected final static String DEFAULT_URL = "https://storia.me/log-in";
 
     /**
      * This is the method to initialize test run on application, located at url (defined in test xml,
@@ -54,26 +53,29 @@ public class StoriaTestInit {
         // Getting URL
         if (url == null) {
             LOGGER.info("Url is not specified and {} will be used", DEFAULT_URL);
-            driver.get(DEFAULT_URL);
+            testUrl = DEFAULT_URL;
         } else {
-            driver.get(url);
-            LOGGER.info("Url to test: {}", url);
+            testUrl = url;
         }
-
-        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.id("rootView")));
-
         // Initialization of page objects for login and home pages
         loginPage = PageFactory.initElements(driver, StoriaLoginPage.class);
-        homePage = PageFactory.initElements(driver, StoriaHomePage.class);
     }
 
     @BeforeMethod
     public void initMethod(Method method) {
+        driver.get(testUrl);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("rootView")));
         // Just some log entries to separate one method from another
         MDC.put("methodName", "[" + method.getDeclaringClass() + "#" + method.getName() + "]");
         LOGGER.info("Method {} started", method.getName());
     }
 
+    /**
+     * Returns browser to start state.
+     * @param method
+     * @param iTestResult
+     */
     @AfterMethod
     public void stopMethod(Method method, ITestResult iTestResult) {
         // Just some log entries to separate one method from another

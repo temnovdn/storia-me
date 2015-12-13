@@ -10,23 +10,29 @@ import org.openqa.selenium.support.PageFactory;
  */
 public class StoriaLoginPage {
 
-    @FindBy(className = "sui-button--social gp")
+    @FindBy(className = "logo")
+    private WebElement logoButton;
+
+    @FindBy(css = "#rootView > div > div.mod-SignIn.with-bg.ui-popup > div > div.ui-wrapper > div > div.Join-container > div.Join-social-form > form > div.sui-button--social.gp")
     private WebElement googleLoginButton;
 
-    @FindBy(name = "sui-button--social fb")
+    @FindBy(css = "#rootView > div > div.mod-SignIn.with-bg.ui-popup > div > div.ui-wrapper > div > div.Join-container > div.Join-social-form > form > div.sui-button--social.fb")
     private WebElement facebookLoginButton;
 
-    @FindBy(className = "sui-button--social vk")
-    private WebElement vkLoginButton;
-
-    @FindBy(xpath = "html/body/div/div[10]/div/div[2]/div/div[2]/form/div[2]/input")
+    @FindBy(css = "div.sui-form--line:nth-child(2) > input:nth-child(1)")
     private WebElement emailField;
 
-    @FindBy(xpath = "html/body/div/div[10]/div/div[2]/div/div[2]/form/div[3]/input")
+    @FindBy(css = "div.sui-form--line:nth-child(3) > input:nth-child(1)")
     private WebElement passwordField;
 
-    @FindBy(xpath = "html/body/div/div[10]/div/div[2]/div/div[2]/form/button")
+    @FindBy(css = ".sui-button")
     private WebElement loginButton;
+
+    @FindBy(css = "div.tab:nth-child(1) > a:nth-child(2)")
+    private WebElement registrationLink;
+
+    @FindBy(linkText = "forgot")
+    private WebElement forgottenPassword;
 
     private WebDriver driver;
 
@@ -43,13 +49,17 @@ public class StoriaLoginPage {
         facebookLoginButton.click();
     }
 
-    public void vkLogin() {
-        vkLoginButton.click();
-    }
-
     public void usernameAndPasswordLogin(final String username, final String password) {
         emailField.sendKeys(username);
         passwordField.sendKeys(password);
         loginButton.click();
+    }
+
+    public void forgottenPasswordLinkClick() {
+        forgottenPassword.click();
+    }
+
+    public void clickRegistrationLink() {
+        registrationLink.click();
     }
 }
