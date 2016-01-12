@@ -13,5 +13,4 @@ To run tests from IntelliJ Idea - rightclick on login.xml and select "Run".
 
 Test log will be in ./logs/admin.log
 
-#Test method me.storia.login.StoriaMeLoginTests.passwordUsernameLogin
-#needs valid login/password to pass.
+Test method me.storia.login.StoriaMeLoginTests.passwordUsernameLogin needs_valid_login/password to pass.
